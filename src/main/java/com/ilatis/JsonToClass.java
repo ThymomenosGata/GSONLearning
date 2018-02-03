@@ -28,7 +28,7 @@ public class JsonToClass {
         Gson gson = builder.create();
         ClassForBars bars = gson.fromJson(fJson, ClassForBars.class);
 
-        System.out.print(bars.Address);
+        System.out.print(bars.PublicPhone.get(0).PublicPhone);
     }
 
 }
