@@ -1,34 +1,32 @@
 package com.ilatis;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.*;
 
 public class JsonToClass {
     public void fjs() {
-        String fJson = new String();
+
+        Gson gson = new Gson();
+        BufferedReader br;
+        List<ClassForBars> list;
 
         try {
-            FileReader reader = new FileReader("/home/thymomenosgata/IdeaProjects/GSONLearning/src/main/resources/data-2897-2017-12-21.json");
-            int c;
-            while ((c = reader.read()) != -1){
-                fJson+=(char)c;
+            br = new BufferedReader(new FileReader("/home/thymomenosgata/IdeaProjects/GSONLearning/src/main/resources/data-2897-2017-12-21.json"));
+            Type founderListType = new TypeToken<ArrayList<ClassForBars>>(){}.getType();
+            list = gson.fromJson(br, founderListType);
+            for(ClassForBars cl : list){
+                System.out.println(cl.geoData.coordinates);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
-
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        ClassForBars bars = gson.fromJson(fJson, ClassForBars.class);
-
-        System.out.print(bars.PublicPhone.get(0).PublicPhone);
     }
 
 }
